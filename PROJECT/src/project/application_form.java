@@ -246,7 +246,7 @@ public class application_form extends javax.swing.JFrame {
     String notes = fillNotes.getText();
 
     // Check if all required fields are filled
-    if (companyName.isEmpty() || internshipTitle.isEmpty() || internshipLocation.isEmpty() || contactInfo.isEmpty()) {
+    if (companyName.isEmpty() || internshipTitle.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please fill in all required fields.");
         return;
     }
