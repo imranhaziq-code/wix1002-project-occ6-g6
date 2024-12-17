@@ -9,7 +9,9 @@ package project;
  * @author hp
  */
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,8 +21,16 @@ public class application_form extends javax.swing.JFrame {
     /**
      * Creates new form application_form
      */
+    private int userId;
+    
+    public application_form(int userId) {
+        this.userId = userId;
+        initComponents();
+    }
+    
     public application_form() {
         initComponents();
+        
     }
 
     /**
@@ -131,7 +141,7 @@ public class application_form extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(242, 242, 242));
         jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\hp\\Downloads\\SETTINGS.png")); // NOI18N
         jButton2.setBorderPainted(false);
-        jButton2.setLabel("");
+        jButton2.setContentAreaFilled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -145,7 +155,7 @@ public class application_form extends javax.swing.JFrame {
             .addComponent(top, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(209, 209, 209)
-                .addComponent(applyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .addComponent(applyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
                 .addGap(210, 210, 210))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(42, 42, 42)
@@ -259,18 +269,19 @@ public class application_form extends javax.swing.JFrame {
     // Step 5: Establish a connection to the database
     try (Connection con = DriverManager.getConnection(url, username, password)) {
         // Step 6: Create the SQL INSERT query
-        String query = "INSERT INTO applications (company_name, internship_title, intern_location, contact, notes, date_applied) "
-                     + "VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO applications (user_id, company_name, internship_title, intern_location, contact, notes, date_applied) "
+                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         // Step 7: Prepare the statement
         try (PreparedStatement pst = con.prepareStatement(query)) {
             // Step 8: Set the values for the query parameters
-            pst.setString(1, companyName);
-            pst.setString(2, internshipTitle);
-            pst.setString(3, internshipLocation);
-            pst.setString(4, contactInfo);
-            pst.setString(5, notes);
-            pst.setString(6, currentDate);  // Insert today's date
+            pst.setInt(1, userId);
+            pst.setString(2, companyName);
+            pst.setString(3, internshipTitle);
+            pst.setString(4, internshipLocation);
+            pst.setString(5, contactInfo);
+            pst.setString(6, notes);
+            pst.setString(7, currentDate);  // Insert today's date
 
             // Step 9: Execute the query
             int rowsAffected = pst.executeUpdate();

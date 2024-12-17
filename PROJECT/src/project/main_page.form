@@ -38,8 +38,8 @@
               </Group>
               <EmptySpace min="-2" pref="213" max="-2" attributes="0"/>
           </Group>
-          <Component id="copyright" alignment="1" max="32767" attributes="0"/>
           <Component id="umLogo" alignment="1" max="32767" attributes="0"/>
+          <Component id="copyright" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
