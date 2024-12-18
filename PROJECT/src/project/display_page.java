@@ -37,31 +37,14 @@ public class display_page extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         top = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        copyright = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        panel1 = new javax.swing.JPanel();
-        compName = new javax.swing.JLabel();
-        title = new javax.swing.JLabel();
-        dateApplied = new javax.swing.JLabel();
-        location = new javax.swing.JLabel();
-        contact = new javax.swing.JLabel();
-        notes = new javax.swing.JLabel();
-        status = new javax.swing.JLabel();
-        updateButton = new javax.swing.JButton();
-        deleteButton = new javax.swing.JButton();
-        titleSpace = new javax.swing.JLabel();
-        dateSpace = new javax.swing.JLabel();
-        locationSpace = new javax.swing.JLabel();
-        contactSpace = new javax.swing.JLabel();
-        notesSpace = new javax.swing.JLabel();
-        statusSpace = new javax.swing.JLabel();
-        addButton = new javax.swing.JButton();
-        sortButton = new javax.swing.JButton();
-        filterButton = new javax.swing.JButton();
-        searchButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        applyButton = new javax.swing.JButton();
+        applyButton1 = new javax.swing.JButton();
+        applyButton2 = new javax.swing.JButton();
+        applyButton3 = new javax.swing.JButton();
+        applyButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,295 +55,130 @@ public class display_page extends javax.swing.JFrame {
         top.setText("Internship Hub");
         top.setOpaque(true);
 
-        jScrollPane1.setBackground(new java.awt.Color(153, 153, 153));
-        jScrollPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Company", "Title", "Location", "Contact", "Notes", "Status"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
-        copyright.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        copyright.setText("© MalayaScript ");
-
-        jButton2.setBackground(new java.awt.Color(242, 242, 242));
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\hp\\Downloads\\SETTINGS.png")); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        applyButton.setBackground(new java.awt.Color(0, 32, 96));
+        applyButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        applyButton.setForeground(new java.awt.Color(255, 255, 255));
+        applyButton.setText("ADD");
+        applyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                applyButtonActionPerformed(evt);
             }
         });
 
-        panel1.setBackground(new java.awt.Color(255, 255, 255));
-        panel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(0, 0, 102), new java.awt.Color(0, 0, 102)));
-        panel1.setToolTipText("");
-
-        compName.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 12)); // NOI18N
-        compName.setText("Company Name");
-
-        title.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        title.setText("Title:");
-
-        dateApplied.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 9)); // NOI18N
-        dateApplied.setText("Date Applied:");
-
-        location.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        location.setText("Location:");
-
-        contact.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        contact.setText("Contact:");
-
-        notes.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        notes.setText("Notes:");
-
-        status.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        status.setText("Status:");
-
-        updateButton.setBackground(new java.awt.Color(0, 0, 102));
-        updateButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 12)); // NOI18N
-        updateButton.setForeground(new java.awt.Color(255, 255, 255));
-        updateButton.setText("UPDATE");
-        updateButton.addActionListener(new java.awt.event.ActionListener() {
+        applyButton1.setBackground(new java.awt.Color(0, 32, 96));
+        applyButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        applyButton1.setForeground(new java.awt.Color(255, 255, 255));
+        applyButton1.setText("DELETE");
+        applyButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateButtonActionPerformed(evt);
+                applyButton1ActionPerformed(evt);
             }
         });
 
-        deleteButton.setBackground(new java.awt.Color(0, 0, 102));
-        deleteButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 12)); // NOI18N
-        deleteButton.setForeground(new java.awt.Color(255, 255, 255));
-        deleteButton.setText("DELETE");
-        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+        applyButton2.setBackground(new java.awt.Color(0, 32, 96));
+        applyButton2.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        applyButton2.setForeground(new java.awt.Color(255, 255, 255));
+        applyButton2.setText("UPDATE");
+        applyButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteButtonActionPerformed(evt);
+                applyButton2ActionPerformed(evt);
             }
         });
 
-        titleSpace.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-
-        dateSpace.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 9)); // NOI18N
-
-        locationSpace.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-
-        contactSpace.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-
-        notesSpace.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-
-        statusSpace.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-
-        javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
-        panel1.setLayout(panel1Layout);
-        panel1Layout.setHorizontalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(updateButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteButton)
-                        .addGap(0, 30, Short.MAX_VALUE))
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(title)
-                                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panel1Layout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addComponent(compName)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(panel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(titleSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(dateApplied)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dateSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(location)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(locationSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(contact)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(contactSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(panel1Layout.createSequentialGroup()
-                                .addComponent(notes)
-                                .addGap(18, 18, 18)
-                                .addComponent(notesSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(status)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(statusSpace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        panel1Layout.setVerticalGroup(
-            panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(compName)
-                .addGap(18, 18, 18)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(title)
-                    .addComponent(titleSpace))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dateApplied, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateSpace, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(location)
-                    .addComponent(locationSpace))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(contact)
-                    .addComponent(contactSpace))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(notes)
-                    .addComponent(notesSpace))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(status)
-                    .addComponent(statusSpace))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateButton)
-                    .addComponent(deleteButton))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
-        addButton.setBackground(new java.awt.Color(0, 0, 102));
-        addButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 12)); // NOI18N
-        addButton.setForeground(new java.awt.Color(255, 255, 255));
-        addButton.setText("ADD");
-        addButton.addActionListener(new java.awt.event.ActionListener() {
+        applyButton3.setBackground(new java.awt.Color(0, 32, 96));
+        applyButton3.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        applyButton3.setForeground(new java.awt.Color(255, 255, 255));
+        applyButton3.setText("SORT");
+        applyButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButtonActionPerformed(evt);
+                applyButton3ActionPerformed(evt);
             }
         });
 
-        sortButton.setBackground(new java.awt.Color(0, 0, 102));
-        sortButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 12)); // NOI18N
-        sortButton.setForeground(new java.awt.Color(255, 255, 255));
-        sortButton.setText("SORT");
-        sortButton.addActionListener(new java.awt.event.ActionListener() {
+        applyButton4.setBackground(new java.awt.Color(0, 32, 96));
+        applyButton4.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        applyButton4.setForeground(new java.awt.Color(255, 255, 255));
+        applyButton4.setText("SEARCH");
+        applyButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sortButtonActionPerformed(evt);
+                applyButton4ActionPerformed(evt);
             }
         });
-
-        filterButton.setBackground(new java.awt.Color(0, 0, 102));
-        filterButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 12)); // NOI18N
-        filterButton.setForeground(new java.awt.Color(255, 255, 255));
-        filterButton.setText("FILTER");
-        filterButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filterButtonActionPerformed(evt);
-            }
-        });
-
-        searchButton.setBackground(new java.awt.Color(0, 0, 102));
-        searchButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 12)); // NOI18N
-        searchButton.setForeground(new java.awt.Color(255, 255, 255));
-        searchButton.setText("SEARCH");
-        searchButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(top, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(295, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(searchButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(filterButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sortButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(addButton))
-                    .addComponent(copyright, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(92, 92, 92)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(top, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(sortButton)
-                        .addComponent(addButton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(filterButton)
-                        .addComponent(searchButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(copyright, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(top, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(applyButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(applyButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(applyButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(applyButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(applyButton4)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(top, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(applyButton)
+                    .addComponent(applyButton1)
+                    .addComponent(applyButton2)
+                    .addComponent(applyButton3)
+                    .addComponent(applyButton4))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void applyButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_applyButton1ActionPerformed
 
-    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+    private void applyButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_updateButtonActionPerformed
+    }//GEN-LAST:event_applyButton2ActionPerformed
 
-    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+    private void applyButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButton3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_addButtonActionPerformed
+    }//GEN-LAST:event_applyButton3ActionPerformed
 
-    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+    private void applyButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButton4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_deleteButtonActionPerformed
+    }//GEN-LAST:event_applyButton4ActionPerformed
 
-    private void sortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortButtonActionPerformed
+    private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_sortButtonActionPerformed
-
-    private void filterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_filterButtonActionPerformed
-
-    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchButtonActionPerformed
+        // Step 1: Get the current date
+        // Step 4: Insert data into the database (make sure to change the database details
+    }//GEN-LAST:event_applyButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -417,30 +235,13 @@ public class display_page extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addButton;
-    private javax.swing.JLabel compName;
-    private javax.swing.JLabel contact;
-    private javax.swing.JLabel contactSpace;
-    private javax.swing.JLabel copyright;
-    private javax.swing.JLabel dateApplied;
-    private javax.swing.JLabel dateSpace;
-    private javax.swing.JButton deleteButton;
-    private javax.swing.JButton filterButton;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel location;
-    private javax.swing.JLabel locationSpace;
-    private javax.swing.JLabel notes;
-    private javax.swing.JLabel notesSpace;
-    private javax.swing.JPanel panel1;
-    private javax.swing.JButton searchButton;
-    private javax.swing.JButton sortButton;
-    private javax.swing.JLabel status;
-    private javax.swing.JLabel statusSpace;
-    private javax.swing.JLabel title;
-    private javax.swing.JLabel titleSpace;
+    private javax.swing.JButton applyButton;
+    private javax.swing.JButton applyButton1;
+    private javax.swing.JButton applyButton2;
+    private javax.swing.JButton applyButton3;
+    private javax.swing.JButton applyButton4;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel top;
-    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }
