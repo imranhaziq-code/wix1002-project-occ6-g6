@@ -104,8 +104,8 @@ public class main_page extends javax.swing.JFrame {
         // TODO add your handling code here:
         // Create an instance of ApplicationForm and display it
         // Create an instance of application_form and display it
-        application_form appForm = new application_form();
-        appForm.setVisible(true);
+        login_page logPage = new login_page();
+        logPage.setVisible(true);
 
         // Close or hide the current frame
         this.dispose(); // Optional: Close main_page window
