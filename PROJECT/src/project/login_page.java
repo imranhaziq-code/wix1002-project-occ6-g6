@@ -274,7 +274,7 @@ public class login_page extends javax.swing.JFrame {
                 int user_id = resultSet.getInt("id");
 //
             // Pass user_id to display_page
-            display_page display = new display_page(user_id);
+            display_page display = new display_page();
             display.setVisible(true);
             this.dispose();  // Close login page
             } else {
