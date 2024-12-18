@@ -9,23 +9,18 @@ package project;
  * @author hp
  */
 
-import java.sql.*;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+
 
 public class display_page extends javax.swing.JFrame {
 
     /**
      * Creates new form display_page
      */
-    private int userId;
-    private JTable applications;
 
-     public display_page(int userId) {
-        this.userId = userId;
+
+     public display_page() {
         initComponents();
         
-        loadApplications(userId);
     }
 
     /**
@@ -183,39 +178,7 @@ public class display_page extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    private void loadApplications(int userId) {
-    DefaultTableModel model = (DefaultTableModel) applications.getModel();
-    model.setRowCount(0); // Clear existing rows
-
-    try {
-        System.out.println("Connecting to database...");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
-        System.out.println("Connection successful!");
-
-        String query = "SELECT company_name, title, date_applied, location, contact, status FROM applications WHERE user_id = ?";
-        PreparedStatement pst = conn.prepareStatement(query);
-        pst.setInt(1, userId);
-
-        System.out.println("Executing query: " + pst.toString());
-        ResultSet rs = pst.executeQuery();
-
-        while (rs.next()) {
-            String companyName = rs.getString("company_name");
-            String title = rs.getString("title");
-            String dateApplied = rs.getString("date_applied");
-            String location = rs.getString("location");
-            String contact = rs.getString("contact");
-            String status = rs.getString("status");
-
-            System.out.println("Adding row: " + companyName + ", " + title);
-            model.addRow(new Object[]{companyName, title, dateApplied, location, contact, status});
-        }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error loading applications: " + e.getMessage());
-    }
-}
+    
 
     
 
@@ -228,7 +191,11 @@ public class display_page extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-            java.awt.EventQueue.invokeLater(() -> new display_page(1).setVisible(true));
+            java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new display_page().setVisible(true);
+            }
+        });
     }
 
     
