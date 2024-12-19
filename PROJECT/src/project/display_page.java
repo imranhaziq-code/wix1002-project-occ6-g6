@@ -121,7 +121,7 @@ public class display_page extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(applyButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,7 +147,7 @@ public class display_page extends javax.swing.JFrame {
                     .addComponent(applyButton2)
                     .addComponent(applyButton3)
                     .addComponent(applyButton4))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(306, Short.MAX_VALUE))
         );
 
         pack();

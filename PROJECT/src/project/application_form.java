@@ -52,8 +52,9 @@ public class application_form extends javax.swing.JFrame {
         notes = new javax.swing.JLabel();
         applyButton = new javax.swing.JButton();
         fillIntLoca1 = new javax.swing.JTextField();
-        copyright = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        copyright = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -131,16 +132,25 @@ public class application_form extends javax.swing.JFrame {
             }
         });
 
-        copyright.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        copyright.setText("© MalayaScript ");
-
         jButton2.setBackground(new java.awt.Color(242, 242, 242));
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\hp\\Downloads\\SETTINGS.png")); // NOI18N
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        copyright.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        copyright.setText("© MalayaScript ");
+
+        backButton.setBackground(new java.awt.Color(242, 242, 242));
+        backButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\hp\\Downloads\\BACK.png")); // NOI18N
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
             }
         });
 
@@ -151,7 +161,7 @@ public class application_form extends javax.swing.JFrame {
             .addComponent(top, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(209, 209, 209)
-                .addComponent(applyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                .addComponent(applyButton, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                 .addGap(210, 210, 210))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(42, 42, 42)
@@ -178,9 +188,11 @@ public class application_form extends javax.swing.JFrame {
                         .addComponent(fillNotes)))
                 .addGap(27, 27, 27))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(120, 120, 120)
+                .addContainerGap()
+                .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90)
                 .addComponent(copyright, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(91, 91, 91)
+                .addGap(151, 151, 151)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -205,14 +217,16 @@ public class application_form extends javax.swing.JFrame {
                     .addComponent(fillIntLoca1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fillNotes, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                    .addComponent(fillNotes, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                     .addComponent(notes))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(applyButton)
-                        .addGap(52, 52, 52)
-                        .addComponent(copyright, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(copyright, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -303,6 +317,15 @@ public class application_form extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        // TODO add your handling code here:
+        main_page mainPage = new main_page();
+        mainPage.setVisible(true);
+
+        // Close or hide the current frame
+        this.dispose(); // Optional: Close main_page window
+    }//GEN-LAST:event_backButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -340,6 +363,7 @@ public class application_form extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton applyButton;
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel contact;
     private javax.swing.JLabel copyright;
     private javax.swing.JTextField fillCompName;
