@@ -31,14 +31,20 @@ public class display_page extends javax.swing.JFrame {
      * Creates new form display_page
      */
 
+    // Declare a private instance variable to store the user ID
+    private int userId;
 
-     private int userId;
-
+    // Constructor for the display_page class that accepts a user ID as a parameter
     public display_page(int userId) {
+        // Assign the provided user ID to the instance variable userId
         this.userId = userId;
+        // Initialize the components of the display page (e.g., GUI elements)
         initComponents();
-        configureTable(); // Configure table after initComponents
-        loadData();       // Load data into the table
+        // Configure the table (e.g., set up columns, data model, etc.)
+        configureTable(); 
+        // Load data to display (e.g., fetch information from the database and display it)
+        loadData();       
+        // Configure the search functionality (e.g., set up search fields and actions)
         configureSearch();
         
       
@@ -65,7 +71,6 @@ public class display_page extends javax.swing.JFrame {
         Sort = new javax.swing.JComboBox<>();
         copyright = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        importCSV = new javax.swing.JButton();
         logOut2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -186,7 +191,7 @@ public class display_page extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, false, true
+                true, true, true, true, true, true, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -229,13 +234,6 @@ public class display_page extends javax.swing.JFrame {
 
         jLabel1.setText("* Title, Location, Contact, Notes and Status are editable.");
 
-        importCSV.setText("Import .csv");
-        importCSV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                importCSVActionPerformed(evt);
-            }
-        });
-
         logOut2.setText("Log Out");
         logOut2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,8 +265,7 @@ public class display_page extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(importCSV)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -294,193 +291,150 @@ public class display_page extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(77, 77, 77)
-                                .addComponent(copyright, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(logOut2)
-                                .addContainerGap())))
-                    .addComponent(importCSV)))
+                        .addGap(77, 77, 77)
+                        .addComponent(copyright, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(logOut2)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Action event triggered when the update button is clicked
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
+        // Get the model of the table (DefaultTableModel allows editing the table data)
+    DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
 
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "")) {
-            for (int i = 0; i < model.getRowCount(); i++) {
-                int id = (int) model.getValueAt(i, 7); // Use hidden id for updates
-                String title = (String) model.getValueAt(i, 1);
-                String location = (String) model.getValueAt(i, 2);
-                String contact = (String) model.getValueAt(i, 3);
-                String notes = (String) model.getValueAt(i, 4);
-                String status = (String) model.getValueAt(i, 5);
+    // Establish a connection to the database
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "")) {
+        
+        // Iterate over all rows in the table (each row represents an application)
+        for (int i = 0; i < model.getRowCount(); i++) {
+            // Retrieve the hidden ID (which is assumed to be in the 8th column, index 7)
+            int id = (int) model.getValueAt(i, 7); 
 
-                String query = "UPDATE applications SET internship_title = ?, intern_location = ?, contact = ?, notes = ?, status = ? WHERE id = ?";
-                try (PreparedStatement pst = con.prepareStatement(query)) {
-                    pst.setString(1, title);
-                    pst.setString(2, location);
-                    pst.setString(3, contact);
-                    pst.setString(4, notes);
-                    pst.setString(5, status);
-                    pst.setInt(6, id);
+            // Retrieve the other values from the row (internship details)
+            String companyName = (String) model.getValueAt(i, 0);  // Company name (from column 1, index 0)
+            String title = (String) model.getValueAt(i, 1);  // Internship title (from column 2)
+            String location = (String) model.getValueAt(i, 2);  // Internship location (from column 3)
+            String contact = (String) model.getValueAt(i, 3);  // Contact info (from column 4)
+            String notes = (String) model.getValueAt(i, 4);  // Notes (from column 5)
+            String status = (String) model.getValueAt(i, 5);  // Status (from column 6)
 
-                    pst.executeUpdate();
-                }
+            // SQL query to update the application record with the provided values
+            String query = "UPDATE applications SET company_name = ?, internship_title = ?, intern_location = ?, contact = ?, notes = ?, status = ? WHERE id = ?";
+            
+            // Prepare the SQL statement
+            try (PreparedStatement pst = con.prepareStatement(query)) {
+                // Set the values for the query parameters (companyName, title, location, contact, etc.)
+                pst.setString(1, companyName);  // Set company name
+                pst.setString(2, title);        // Set internship title
+                pst.setString(3, location);     // Set internship location
+                pst.setString(4, contact);      // Set contact info
+                pst.setString(5, notes);        // Set notes
+                pst.setString(6, status);       // Set status
+                pst.setInt(7, id);              // Set the ID for the specific row being updated
+
+                // Execute the update statement for the current row
+                pst.executeUpdate();
             }
-            JOptionPane.showMessageDialog(this, "Updated successfully!");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error updating database: " + e.getMessage());
         }
+        
+        // Show a success message once all rows have been updated
+        JOptionPane.showMessageDialog(this, "Updated successfully!");
+    } catch (SQLException e) {
+        // Show an error message if an exception occurs during the update process
+        JOptionPane.showMessageDialog(this, "Error updating database: " + e.getMessage());
+    }
     
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
-        // Step 1: Get the current date
-        // Step 4: Insert data into the database (make sure to change the database details
-        
-        application_form appForm = new application_form(this.userId);
-        appForm.setVisible(true);
+        application_form appForm = new application_form(this.userId);   // Create a new instance of the application_form, passing the current userId
+        appForm.setVisible(true);   // Set the application_form to be visible (open the form for the user)
 
-        // Close or hide the current frame
-        this.dispose(); // Optional: Close main_page window
+        this.dispose(); // Close (dispose) the current window (this page) when the new form is shown
           
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void SortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SortActionPerformed
         // TODO add your handling code here:
-        String selected = (String) Sort.getSelectedItem();
-    if (selected == null || selected.equals("Sort")) {
-        loadData(); // Load unsorted data if "Sort" is selected
-        return;
-    }
+        
+        String selected = (String) Sort.getSelectedItem();  // Get the selected sorting option from the dropdown
 
-    String column = switch (selected) {
-        case "By Company" -> "company_name";
-        case "By Status" -> "status";
-        case "By Date Applied" -> "date_applied";
-        default -> null;
-    };
-
-    if (column == null) {
-        JOptionPane.showMessageDialog(this, "Invalid sort option selected.");
-        return;
-    }
-
-    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
-         PreparedStatement pst = con.prepareStatement("SELECT * FROM applications WHERE user_id = ? ORDER BY " + column)) {
-        pst.setInt(1, userId);
-        try (ResultSet rs = pst.executeQuery()) {
-            DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
-            model.setRowCount(0);
-
-            while (rs.next()) {
-                model.addRow(new Object[]{
-                    rs.getString("company_name"),
-                    rs.getString("internship_title"),
-                    rs.getString("intern_location"),
-                    rs.getString("contact"),
-                    rs.getString("notes"),
-                    rs.getString("status"),
-                    rs.getDate("date_applied"),
-                    rs.getInt("id")
-                });
-            }
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Error sorting data: " + e.getMessage());
-    }
-    }//GEN-LAST:event_SortActionPerformed
-
-    private void importCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importCSVActionPerformed
-        // TODO add your handling code here:                                         
-    JFileChooser fileChooser = new JFileChooser();
-fileChooser.setDialogTitle("Select a CSV file to import");
-
-int userSelection = fileChooser.showOpenDialog(this);
-if (userSelection == JFileChooser.APPROVE_OPTION) {
-    File fileToOpen = fileChooser.getSelectedFile();
-
-    // Validate file
-    if (!fileToOpen.exists()) {
-        JOptionPane.showMessageDialog(this, "File does not exist: " + fileToOpen.getAbsolutePath());
-        return;
-    }
-    if (!fileToOpen.getName().endsWith(".csv")) {
-        JOptionPane.showMessageDialog(this, "Please select a valid CSV file.");
-        return;
-    }
-
-    try (BufferedReader br = new BufferedReader(new FileReader(fileToOpen));
-         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "")) {
-
-        String line;
-        String query = "INSERT INTO applications (user_id, company_name, internship_title, intern_location, contact, notes, status, date_applied) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement pst = con.prepareStatement(query);
-
-        int rowsInserted = 0;
-        while ((line = br.readLine()) != null) {
-            // Split line by comma and keep empty fields
-            String[] data = line.split(",", -1);
-
-            // Check if the data length is sufficient
-            if (data.length < 7) { // Ensure at least 7 fields based on your database schema
-                System.err.println("Invalid CSV format: " + line);
-                JOptionPane.showMessageDialog(this, "Invalid CSV row skipped: " + line);
-                continue; // Skip invalid rows
-            }
-
-            // Default values for missing fields
-            String contact = data.length > 3 && !data[3].trim().isEmpty() ? data[3].trim() : "";
-            String notes = data.length > 4 && !data[4].trim().isEmpty() ? data[4].trim() : "";
-
-            try {
-                pst.setInt(1, userId);                  // user_id
-                pst.setString(2, data[0].trim());       // company_name
-                pst.setString(3, data[1].trim());       // internship_title
-                pst.setString(4, data[2].trim());       // intern_location
-                pst.setString(5, contact);               // contact
-                pst.setString(6, notes);                 // notes
-                pst.setString(7, data[5].trim());       // status
-                pst.setDate(8, Date.valueOf(data[6].trim())); // date_applied (YYYY-MM-DD format)
-
-                pst.executeUpdate(); // Insert into database
-                rowsInserted++;
-            } catch (SQLException | IllegalArgumentException e) {
-                System.err.println("Error processing row: " + line + " - " + e.getMessage());
-            }
-        }
-
-        JOptionPane.showMessageDialog(this, rowsInserted + " records imported successfully!");
-        loadData(); // Refresh table to include new data
-
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(this, "File reading error: " + e.getMessage());
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
-    }
+// Check if the selected option is "Sort" or null, indicating no sorting option is selected
+if (selected == null || selected.equals("Sort")) {
+    loadData(); // Load unsorted data if "Sort" is selected
+    return; // Exit the method to prevent further execution if no valid sort option is chosen
 }
+
+// Determine the column to sort by based on the selected option
+String column;
+switch (selected) {
+    case "By Company":
+        column = "company_name";  // Sort by company name
+        break;
+    case "By Status":
+        column = "status";        // Sort by application status
+        break;
+    case "By Date Applied":
+        column = "date_applied";  // Sort by date applied
+        break;
+    default:
+        column = null;  // If an invalid option is selected, set column to null
+        break;
+}
+
+// If no valid column was selected, display an error message
+if (column == null) {
+    JOptionPane.showMessageDialog(this, "Invalid sort option selected.");
+    return; // Exit the method as no valid sort column was found
+}
+
+// Attempt to connect to the database and execute the query
+try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
+     PreparedStatement pst = con.prepareStatement("SELECT * FROM applications WHERE user_id = ? ORDER BY " + column)) {
     
-    }//GEN-LAST:event_importCSVActionPerformed
+    pst.setInt(1, userId);  // Set the user_id parameter in the query
+    
+    // Execute the query and get the result set
+    try (ResultSet rs = pst.executeQuery()) {
+        DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();  // Get the table model to update the table
+        model.setRowCount(0);  // Clear the existing data from the table
+        
+        // Iterate through the result set and add the data to the table model
+        while (rs.next()) {
+            model.addRow(new Object[]{
+                rs.getString("company_name"),  
+                rs.getString("internship_title"), 
+                rs.getString("intern_location"),  
+                rs.getString("contact"),  
+                rs.getString("notes"),  
+                rs.getString("status"),  
+                rs.getDate("date_applied"),  
+                rs.getInt("id")  // Application ID (hidden)
+            });
+        }
+    }
+} catch (SQLException e) {
+    // If an error occurs, display the error message
+    JOptionPane.showMessageDialog(this, "Error sorting data: " + e.getMessage());
+}
+    }//GEN-LAST:event_SortActionPerformed
 
     private void logOut2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOut2ActionPerformed
         // TODO add your handling code here:
-        main_page mainPage = new main_page();
-        mainPage.setVisible(true);
+        main_page mainPage = new main_page();   
+        mainPage.setVisible(true);  
 
-        // Close or hide the current frame
-        this.dispose(); // Optional: Close main_page window
-                                               
-
+        this.dispose(); 
     }//GEN-LAST:event_logOut2ActionPerformed
 
     /**
@@ -493,103 +447,94 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
     try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
          PreparedStatement pst = con.prepareStatement("SELECT * FROM applications WHERE user_id = ?")) {
 
-        pst.setInt(1, userId); // Use current user's ID
+        // Set the current user's ID in the SQL query
+        pst.setInt(1, userId); 
+
+        // Execute the query and get the result set
         ResultSet rs = pst.executeQuery();
         
+        // Get the table model from the tableDisplay component
         DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
-        model.setRowCount(0); // Clear existing rows
-        
+
+        // Clear existing rows from the table
+        model.setRowCount(0); 
+
+        // Iterate through the result set and populate the table
         while (rs.next()) {
+            // Add a new row with the data for each application
             model.addRow(new Object[]{
-                rs.getString("company_name"),
-                rs.getString("internship_title"),
-                rs.getString("intern_location"),
-                rs.getString("contact"),
-                rs.getString("notes"),
-                rs.getString("status"),
-                rs.getDate("date_applied"),
-                rs.getInt("id")  // Assuming this is hidden or used for editing later
+                rs.getString("company_name"),  // Company name
+                rs.getString("internship_title"),  // Internship title
+                rs.getString("intern_location"),  // Internship location
+                rs.getString("contact"),  // Contact information
+                rs.getString("notes"),  // Additional notes
+                rs.getString("status"),  // Application status
+                rs.getDate("date_applied"),  // Date applied
+                rs.getInt("id")  // Application ID (typically hidden or used for later editing)
             });
         }
     } catch (SQLException e) {
+        // Handle any SQL errors and display an error message
         JOptionPane.showMessageDialog(this, "Error loading data: " + e.getMessage());
     }
 }
 
-    private void sortData() {
-    String selected = (String) Sort.getSelectedItem(); // Using Sort dropdown
-    if (selected == null || selected.equals("Sort")) return; // Skip if no valid option is selected
-
-    String column = switch (selected) {
-        case "By Company" -> "company_name";
-        case "By Status" -> "status";
-        case "By Date Applied" -> "date_applied";
-        default -> "";
-    };
-
-    if (column.isEmpty()) return;
-
-    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
-         PreparedStatement pst = con.prepareStatement("SELECT * FROM applications WHERE user_id = ? ORDER BY " + column)) {
-        pst.setInt(1, userId);
-        try (ResultSet rs = pst.executeQuery()) {
-            DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
-            model.setRowCount(0);
-
-            while (rs.next()) {
-                model.addRow(new Object[]{
-                    rs.getString("company_name"),
-                    rs.getString("internship_title"),
-                    rs.getString("intern_location"),
-                    rs.getString("contact"),
-                    rs.getString("notes"),
-                    rs.getString("status"),
-                    rs.getDate("date_applied"),
-                    rs.getInt("id")
-                });
-            }
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Error sorting data: " + e.getMessage());
-    }
-}
     
     private void deleteEntry(int id) {
+    // Prompt user for confirmation before deleting entry
     int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this entry?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+    
+    // If the user clicks 'Yes', proceed with deletion
     if (confirm == JOptionPane.YES_OPTION) {
         try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
              PreparedStatement pst = con.prepareStatement("DELETE FROM applications WHERE id = ?")) {
+            
+            // Set the ID parameter in the SQL DELETE query
             pst.setInt(1, id);
+            
+            // Execute the DELETE query and check how many rows were affected
             int rowsAffected = pst.executeUpdate();
 
+            // If one or more rows are affected, show success message and reload data
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(this, "Entry deleted successfully.");
-                loadData(); // Reload table after deletion
+                loadData(); // Reload the table to reflect the deletion
             } else {
+                // If no rows were affected, show an error message
                 JOptionPane.showMessageDialog(this, "Failed to delete entry. ID not found.");
             }
         } catch (SQLException e) {
+            // Handle SQL exception and show an error message
             JOptionPane.showMessageDialog(this, "Error deleting entry: " + e.getMessage());
         }
     }
 }
     
     private void searchCompany() {
+    // Normalize and clean the search input (remove spaces and convert to lowercase)
     String searchText = searchCompany.getText().trim().toLowerCase().replace(" ", ""); // Normalize input
+    
+    // If the search input is empty or the placeholder text is still present, reload all data
     if (searchText.equals("searchcompanyname") || searchText.isEmpty()) {
         loadData(); // Reload all data if no valid search query
         return;
     }
 
+    // Prepare SQL query to search for companies matching the search input
     try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
          PreparedStatement pst = con.prepareStatement(
              "SELECT * FROM applications WHERE user_id = ? AND LOWER(REPLACE(company_name, ' ', '')) LIKE ?")) {
+        
+        // Set the user ID and search text as parameters in the query
         pst.setInt(1, userId);
         pst.setString(2, "%" + searchText + "%"); // Use wildcards for partial matching
+        
+        // Execute the query and process the result set
         try (ResultSet rs = pst.executeQuery()) {
             DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
-            model.setRowCount(0); // Clear existing rows
+            model.setRowCount(0); // Clear existing rows before populating new data
 
+            // Iterate through the result set and add each record to the table model
             while (rs.next()) {
                 model.addRow(new Object[]{
                     rs.getString("company_name"),
@@ -604,32 +549,40 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
             }
         }
     } catch (SQLException e) {
+        // Handle any SQL exceptions and display an error message
         JOptionPane.showMessageDialog(this, "Error searching data: " + e.getMessage());
     }
 }
 
+
     
     private void configureSearch() {
-    // Trigger search when Enter is pressed
-    searchCompany.addActionListener(e -> searchCompany());
+    // Trigger the search when Enter is pressed in the search field
+    searchCompany.addActionListener(e -> searchCompany()); // Call searchCompany() method when Enter key is pressed
 
-    // Clear placeholder text on focus and restore it if empty
+    // Add focus listener to handle placeholder text when the search field gains or loses focus
     searchCompany.addFocusListener(new java.awt.event.FocusAdapter() {
+        
+        // Clear placeholder text when the search field gains focus
         @Override
         public void focusGained(java.awt.event.FocusEvent evt) {
+            // If the placeholder text is still in the field, clear it
             if (searchCompany.getText().equals("Search Company Name")) {
                 searchCompany.setText(""); // Clear placeholder on focus
             }
         }
 
+        // Restore placeholder text if the search field is empty when it loses focus
         @Override
         public void focusLost(java.awt.event.FocusEvent evt) {
+            // If the field is empty after focus is lost, restore the placeholder text
             if (searchCompany.getText().trim().isEmpty()) {
                 searchCompany.setText("Search Company Name"); // Restore placeholder if empty
             }
         }
     });
 }
+
 
     
     private void configureTable() {
@@ -644,53 +597,60 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
     
     
     // Custom Button Renderer and Editor
-    class ButtonRenderer extends JButton implements TableCellRenderer {
-        public ButtonRenderer() {
-            setOpaque(true);
-        }
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            setText("Delete");
-            return this;
-        }
+class ButtonRenderer extends JButton implements TableCellRenderer {
+    // Constructor: Initializes the button to be opaque
+    public ButtonRenderer() {
+        setOpaque(true); // Set the button to be opaque so that it is visible
     }
 
-    class ButtonEditor extends DefaultCellEditor {
-    private JButton button;
-    private boolean isPushed;
-    private int selectedRow;
+    // Renders the "Delete" button in the table cell
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        setText("Delete"); // Set the button text to "Delete"
+        return this; // Return this button as the component for the cell
+    }
+}
 
+class ButtonEditor extends DefaultCellEditor {
+    private JButton button; // Button to trigger deletion
+    private boolean isPushed; // Indicates whether the button has been clicked
+    private int selectedRow; // The row index of the clicked button
+
+    // Constructor: Initializes the editor with a checkbox (default behavior) and a button
     public ButtonEditor(JCheckBox checkBox) {
-        super(checkBox);
-        button = new JButton("Delete");
-        button.setOpaque(true);
-        button.addActionListener(e -> fireEditingStopped());
+        super(checkBox); // Call the superclass constructor (DefaultCellEditor)
+        button = new JButton("Delete"); // Create the "Delete" button
+        button.setOpaque(true); // Set the button to be opaque so it's visible
+        button.addActionListener(e -> fireEditingStopped()); // Stop editing when the button is clicked
     }
 
+    // Prepares the button for display in the cell, and stores the row of the clicked button
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-        isPushed = true;
-        selectedRow = row; // Store the selected row for deletion
-        return button;
+        isPushed = true; // Mark the button as pushed
+        selectedRow = row; // Store the selected row for deletion action
+        return button; // Return the button component for the cell
     }
 
+    // Returns the cell editor value (i.e., the "Delete" action is triggered when button is pushed)
     @Override
     public Object getCellEditorValue() {
         if (isPushed) {
-            int id = (int) tableDisplay.getValueAt(selectedRow, 7); // Ensure ID is in the 8th column
-            deleteEntry(id);
+            int id = (int) tableDisplay.getValueAt(selectedRow, 7); // Get the ID from the 8th column
+            deleteEntry(id); // Call the deleteEntry method with the ID
         }
-        isPushed = false;
-        return "Delete";
+        isPushed = false; // Reset the push flag
+        return "Delete"; // Return the button label ("Delete") as the editor value
     }
 
+    // Stops the cell editing process when the button is clicked
     @Override
     public boolean stopCellEditing() {
-        isPushed = false;
-        return super.stopCellEditing();
+        isPushed = false; // Reset the push flag when editing stops
+        return super.stopCellEditing(); // Call the superclass method to stop editing
     }
 }
+
 
 
 
@@ -716,7 +676,6 @@ if (userSelection == JFileChooser.APPROVE_OPTION) {
     private javax.swing.JComboBox<String> Sort;
     private javax.swing.JButton addButton;
     private javax.swing.JLabel copyright;
-    private javax.swing.JButton importCSV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton logOut2;

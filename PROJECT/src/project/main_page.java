@@ -102,22 +102,18 @@ public class main_page extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         // TODO add your handling code here:
-        // Create an instance of ApplicationForm and display it
-        // Create an instance of application_form and display it
-        login_page logPage = new login_page();
-        logPage.setVisible(true);
+        login_page logPage = new login_page();  // Create a new instance (object) of the login_page class
+        logPage.setVisible(true);   // Make the login page visible to the user
 
-        // Close or hide the current frame
-        this.dispose(); // Optional: Close main_page window
+        this.dispose(); // Close the current window (dispose of the current frame)
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         // TODO add your handling code here:
-        register_page regForm = new register_page();
-        regForm.setVisible(true);
+        register_page regForm = new register_page();    // Create a new instance (object) of the register_page class
+        regForm.setVisible(true);   // Make the registration form visible to the user
 
-        // Close or hide the current frame
-        this.dispose(); // Optional: Close main_page window
+        this.dispose(); // Close the current window (dispose of the current frame)
     }//GEN-LAST:event_registerButtonActionPerformed
 
     /**

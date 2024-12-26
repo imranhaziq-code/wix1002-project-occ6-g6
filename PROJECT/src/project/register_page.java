@@ -400,7 +400,7 @@ public class register_page extends javax.swing.JFrame {
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
 
-        // Collect input data from text fields
+    // Collect input data from text fields and trim any extra spaces
     String firstNameInput = firstName.getText().trim();
     String lastNameInput = lastName.getText().trim();
     String phoneNumberInput = phoneNumber.getText().trim();
@@ -410,21 +410,29 @@ public class register_page extends javax.swing.JFrame {
     String confirmPassInput = new String(confirmPassField.getPassword()).trim();
     String gender = maleButton.isSelected() ? "Male" : "Female";
 
+    
+    // Check if the passwords entered match
     if (!passwordInput.equals(confirmPassInput)) {
         JOptionPane.showMessageDialog(this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
+        return; // Exit the method if passwords don't match
     }
     
+    // Check if any required field is empty
     if (firstNameInput.isEmpty() || lastNameInput.isEmpty() || phoneNumberInput.isEmpty() || emailInput.isEmpty() 
             || usernameInput.isEmpty() || passwordInput.isEmpty() || confirmPassInput.isEmpty() || gender.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please fill in all required fields.");
-        return;
+        return; // Exit the method if any field is empty
     }
 
+    // Try to establish a database connection using a helper method
     try (Connection connection = DatabaseConnection.getConnection()) {
+        
+        // SQL query to insert new user data into the 'users' table
         String sql = "INSERT INTO users (first_name, last_name, phone_number, email, username, password_hash, gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
+        // Prepare the statement for executing the query
         PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        // Set the values of the prepared statement with user inputs
         preparedStatement.setString(1, firstNameInput);
         preparedStatement.setString(2, lastNameInput);
         preparedStatement.setString(3, phoneNumberInput);
@@ -433,9 +441,12 @@ public class register_page extends javax.swing.JFrame {
         preparedStatement.setString(6, passwordInput);
         preparedStatement.setString(7, gender);
 
+        // Execute the query to insert the data into the database
         int rowsInserted = preparedStatement.executeUpdate();
 
+        // Check if the insert was successful
         if (rowsInserted > 0) {
+            // Get the generated keys (e.g., the user ID) after insertion
             ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int userId = generatedKeys.getInt(1);  // Retrieve the generated ID
@@ -450,21 +461,21 @@ public class register_page extends javax.swing.JFrame {
                 this.dispose();
             }
         } else {
+            // If no rows were inserted, display an error message
             JOptionPane.showMessageDialog(this, "Failed to register user.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     } catch (SQLException e) {
-        e.printStackTrace();
+        e.printStackTrace();    // Print the stack trace for debugging purposes
         JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-        main_page mainPage = new main_page();
-        mainPage.setVisible(true);
+        main_page mainPage = new main_page();   // Create a new instance (object) of the main_page class
+        mainPage.setVisible(true);  // Make the main page visible to the user
 
-        // Close or hide the current frame
-        this.dispose(); // Optional: Close main_page window
+        this.dispose(); // Close the current window (dispose of the current frame)
     }//GEN-LAST:event_backButtonActionPerformed
 
     /**

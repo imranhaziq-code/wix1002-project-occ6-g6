@@ -239,11 +239,10 @@ public class login_page extends javax.swing.JFrame {
     
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-        main_page mainPage = new main_page();
-        mainPage.setVisible(true);
+        main_page mainPage = new main_page();   // Create a new instance (object) of the main_page class
+        mainPage.setVisible(true);  // Make the main page visible to the user
 
-        // Close or hide the current frame
-        this.dispose(); // Optional: Close main_page window
+        this.dispose(); // Close the current window (dispose of the current frame)
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void settingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_settingsButtonActionPerformed
@@ -265,40 +264,55 @@ public class login_page extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
 
-        String inputUsername = username.getText().trim();
+    // Retrieve the username and password from the text fields
+    String inputUsername = username.getText().trim();
     String inputPassword = new String(passwordField.getPassword()).trim();
 
+    // Check if either the username or password fields are empty
     if (inputUsername.isEmpty() || inputPassword.isEmpty()) {
+        // If fields are empty, show a message to the user
         JOptionPane.showMessageDialog(this, "Please fill in all required fields.");
-        return;
+        return; // Exit the method
     }
     
+    // Try to establish a connection to the MySQL database
     try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "")) {
+        
+        // Prepare a query to check if the username exists in the database
         String query = "SELECT id, password_hash FROM users WHERE username = ?";
+        
+        // Prepare the statement to execute the query with the inputted username
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, inputUsername);
 
+            // Execute the query to get the result
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                // If a result is found (i.e., the username exists in the database)
                 if (resultSet.next()) {
-                    int user_id = resultSet.getInt("id");
-                    String storedPasswordHash = resultSet.getString("password_hash");
+                    int user_id = resultSet.getInt("id");   // Get the user ID from the result
+                    String storedPasswordHash = resultSet.getString("password_hash");   // Get the stored password hash from the database
 
+                    // Compare the entered password with the stored password hash
                     if (inputPassword.equals(storedPasswordHash)) {
+                        // If passwords match, show a success message
                         JOptionPane.showMessageDialog(this, "Login Successful!");
 
-                        // Pass user_id to display_page
+                        // Create a new display page and pass the user ID to it
                         display_page display = new display_page(user_id);
-                        display.setVisible(true);
-                        this.dispose();
+                        display.setVisible(true);   // Make the display page visible
+                        this.dispose(); // Close the current login window
                     } else {
+                        // If passwords don't match, show an error message
                         JOptionPane.showMessageDialog(this, "Invalid Username/Password", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
+                    // If the username is not found in the database, show an error message
                     JOptionPane.showMessageDialog(this, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
     } catch (SQLException ex) {
+        // If there's an error with the database connection or query execution, show a database error message
         JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
         
@@ -306,11 +320,10 @@ public class login_page extends javax.swing.JFrame {
 
     private void backButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButton1ActionPerformed
         // TODO add your handling code here:
-        main_page mainPage = new main_page();
-        mainPage.setVisible(true);
+        main_page mainPage = new main_page();   // Create a new instance (object) of the main_page class
+        mainPage.setVisible(true);  // Make the main page visible to the user
 
-        // Close or hide the current frame
-        this.dispose(); // Optional: Close main_page window
+        this.dispose(); // Close the current window (dispose of the current frame)
     }//GEN-LAST:event_backButton1ActionPerformed
 
     

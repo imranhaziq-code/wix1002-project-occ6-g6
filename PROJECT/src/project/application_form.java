@@ -17,17 +17,19 @@ public class application_form extends javax.swing.JFrame {
     /**
      * Creates new form application_form
      */
+    
+    // Declare a private instance variable to store the user ID
     private int userId;
     
+    // Constructor that accepts a user ID as a parameter
     public application_form(int userId) {
+        // Set the instance variable userId to the value passed to the constructor
         this.userId = userId;
+        // Initialize the components of the application form (GUI components)
         initComponents();
     }
     
-    public application_form() {
-        initComponents();
-        
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -251,63 +253,64 @@ public class application_form extends javax.swing.JFrame {
 
     private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButtonActionPerformed
         // TODO add your handling code here:
-    // Step 1: Get the current date
+        
+    // Get the current date
     Date today = new Date();
     
-    // Step 2: Format the date to the desired format (yyyy-MM-dd)
+    // Format the date to "yyyy-MM-dd"
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     String currentDate = dateFormat.format(today);
 
-    // Step 3: Collect the data from the form fields
+    // Collect the data entered by the user in the form fields
     String companyName = fillCompName.getText();
     String internshipTitle = fillIntTitle.getText();
     String internshipLocation = fillIntLoca.getText();
     String contactInfo = fillIntLoca1.getText();
     String notes = fillNotes.getText();
 
-    // Check if all required fields are filled
+    // Check if required fields (company name and internship title) are filled
     if (companyName.isEmpty() || internshipTitle.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Please fill in all required fields.");
-        return;
+        return; // Exit if required fields are missing
     }
 
-    // Step 4: Insert data into the database (make sure to change the database details)
-    String url = "jdbc:mysql://localhost:3306/internship_tracker";  // replace with your database URL
+    // Database connection details
+    String url = "jdbc:mysql://localhost:3306/internship_tracker"; 
     String username = "root";
     String password = "";
 
-    // Step 5: Establish a connection to the database
+    // Establish a connection to the database
     try (Connection con = DriverManager.getConnection(url, username, password)) {
-        // Step 6: Create the SQL INSERT query
+        // SQL query to insert the user's application data into the database
         String query = "INSERT INTO applications (user_id, company_name, internship_title, intern_location, contact, notes, date_applied) "
                      + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        // Step 7: Prepare the statement
+        // Prepare the statement for execution
         try (PreparedStatement pst = con.prepareStatement(query)) {
-            // Step 8: Set the values for the query parameters
+            // Set the values for the SQL query parameters
             pst.setInt(1, userId);
             pst.setString(2, companyName);
             pst.setString(3, internshipTitle);
             pst.setString(4, internshipLocation);
             pst.setString(5, contactInfo);
             pst.setString(6, notes);
-            pst.setString(7, currentDate);  // Insert today's date
+            pst.setString(7, currentDate);  
 
-            // Step 9: Execute the query
+            // Execute the SQL query to insert the data
             int rowsAffected = pst.executeUpdate();
 
-            // Step 10: Provide feedback to the user
+            // Provide feedback based on the result of the insertion
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(this, "Application submitted successfully!");
-                display_page display = new display_page(userId);
+                display_page display = new display_page(userId);    // Create and display the next page (display_page)
                 display.setVisible(true);
-                this.dispose();
+                this.dispose(); // Close the current form (application form)
             } else {
                 JOptionPane.showMessageDialog(this, "Error in submission. Try again.");
             }
         }
     } catch (SQLException e) {
-        // Handle SQL errors
+        // Handle any SQL errors that occur during the database interaction
         JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
     }
     }//GEN-LAST:event_applyButtonActionPerformed
@@ -325,8 +328,7 @@ public class application_form extends javax.swing.JFrame {
         display_page disPage = new display_page(userId);
         disPage.setVisible(true);
 
-        // Close or hide the current frame
-        this.dispose(); // Optional: Close main_page window
+        this.dispose(); 
     }//GEN-LAST:event_backButtonActionPerformed
 
     
@@ -362,7 +364,7 @@ public class application_form extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new application_form().setVisible(true);
+                new application_form(1).setVisible(true);
             }
         });
     }
