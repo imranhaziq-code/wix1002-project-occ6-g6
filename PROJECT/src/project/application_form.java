@@ -299,6 +299,9 @@ public class application_form extends javax.swing.JFrame {
             // Step 10: Provide feedback to the user
             if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(this, "Application submitted successfully!");
+                display_page display = new display_page(userId);
+                display.setVisible(true);
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Error in submission. Try again.");
             }
@@ -319,13 +322,16 @@ public class application_form extends javax.swing.JFrame {
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
-        main_page mainPage = new main_page();
-        mainPage.setVisible(true);
+        display_page disPage = new display_page(userId);
+        disPage.setVisible(true);
 
         // Close or hide the current frame
         this.dispose(); // Optional: Close main_page window
     }//GEN-LAST:event_backButtonActionPerformed
 
+    
+    
+    
     /**
      * @param args the command line arguments
      */

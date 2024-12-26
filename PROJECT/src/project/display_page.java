@@ -10,6 +10,20 @@ package project;
  */
 
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.sql.*;
+import java.util.Vector;
+import project.main_page;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+
+
 
 public class display_page extends javax.swing.JFrame {
 
@@ -18,10 +32,20 @@ public class display_page extends javax.swing.JFrame {
      */
 
 
-     public display_page() {
+     private int userId;
+
+    public display_page(int userId) {
+        this.userId = userId;
         initComponents();
+        configureTable(); // Configure table after initComponents
+        loadData();       // Load data into the table
+        configureSearch();
         
+      
     }
+
+     
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,12 +58,15 @@ public class display_page extends javax.swing.JFrame {
 
         top = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        applyButton = new javax.swing.JButton();
-        applyButton1 = new javax.swing.JButton();
-        applyButton2 = new javax.swing.JButton();
-        applyButton3 = new javax.swing.JButton();
-        applyButton4 = new javax.swing.JButton();
+        tableDisplay = new javax.swing.JTable();
+        addButton = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
+        searchCompany = new javax.swing.JTextField();
+        Sort = new javax.swing.JComboBox<>();
+        copyright = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        importCSV = new javax.swing.JButton();
+        logOut2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,66 +77,169 @@ public class display_page extends javax.swing.JFrame {
         top.setText("Internship Hub");
         top.setOpaque(true);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableDisplay.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        tableDisplay.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Company", "Title", "Location", "Contact", "Notes", "Status"
+                "Company", "Title", "Location", "Contact", "Notes", "Status", "Date Applied", "Action"
             }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, false, true
+            };
 
-        applyButton.setBackground(new java.awt.Color(0, 32, 96));
-        applyButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        applyButton.setForeground(new java.awt.Color(255, 255, 255));
-        applyButton.setText("ADD");
-        applyButton.addActionListener(new java.awt.event.ActionListener() {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tableDisplay);
+
+        addButton.setBackground(new java.awt.Color(0, 32, 96));
+        addButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        addButton.setForeground(new java.awt.Color(255, 255, 255));
+        addButton.setText("ADD");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                applyButtonActionPerformed(evt);
+                addButtonActionPerformed(evt);
             }
         });
 
-        applyButton1.setBackground(new java.awt.Color(0, 32, 96));
-        applyButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        applyButton1.setForeground(new java.awt.Color(255, 255, 255));
-        applyButton1.setText("DELETE");
-        applyButton1.addActionListener(new java.awt.event.ActionListener() {
+        updateButton.setBackground(new java.awt.Color(0, 32, 96));
+        updateButton.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        updateButton.setForeground(new java.awt.Color(255, 255, 255));
+        updateButton.setText("UPDATE");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                applyButton1ActionPerformed(evt);
+                updateButtonActionPerformed(evt);
             }
         });
 
-        applyButton2.setBackground(new java.awt.Color(0, 32, 96));
-        applyButton2.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        applyButton2.setForeground(new java.awt.Color(255, 255, 255));
-        applyButton2.setText("UPDATE");
-        applyButton2.addActionListener(new java.awt.event.ActionListener() {
+        searchCompany.setText("Search Company Name");
+
+        Sort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sort", "By Company", "By Status", "By Date Applied" }));
+        Sort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                applyButton2ActionPerformed(evt);
+                SortActionPerformed(evt);
             }
         });
 
-        applyButton3.setBackground(new java.awt.Color(0, 32, 96));
-        applyButton3.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        applyButton3.setForeground(new java.awt.Color(255, 255, 255));
-        applyButton3.setText("SORT");
-        applyButton3.addActionListener(new java.awt.event.ActionListener() {
+        copyright.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        copyright.setText("© MalayaScript ");
+
+        jLabel1.setText("* Title, Location, Contact, Notes and Status are editable.");
+
+        importCSV.setText("Import .csv");
+        importCSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                applyButton3ActionPerformed(evt);
+                importCSVActionPerformed(evt);
             }
         });
 
-        applyButton4.setBackground(new java.awt.Color(0, 32, 96));
-        applyButton4.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        applyButton4.setForeground(new java.awt.Color(255, 255, 255));
-        applyButton4.setText("SEARCH");
-        applyButton4.addActionListener(new java.awt.event.ActionListener() {
+        logOut2.setText("Log Out");
+        logOut2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                applyButton4ActionPerformed(evt);
+                logOut2ActionPerformed(evt);
             }
         });
 
@@ -119,66 +249,451 @@ public class display_page extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(top, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(addButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Sort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(importCSV)))))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(applyButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(applyButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(applyButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(applyButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(applyButton4)))
-                .addContainerGap())
+                        .addGap(79, 79, 79)
+                        .addComponent(copyright, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(105, 105, 105))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(logOut2)
+                        .addGap(851, 851, 851))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(top, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(applyButton)
-                    .addComponent(applyButton1)
-                    .addComponent(applyButton2)
-                    .addComponent(applyButton3)
-                    .addComponent(applyButton4))
-                .addContainerGap(306, Short.MAX_VALUE))
+                    .addComponent(addButton)
+                    .addComponent(searchCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Sort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(updateButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addComponent(copyright, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(logOut2)
+                                .addContainerGap())))
+                    .addComponent(importCSV)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void applyButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButton1ActionPerformed
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_applyButton1ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
 
-    private void applyButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_applyButton2ActionPerformed
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "")) {
+            for (int i = 0; i < model.getRowCount(); i++) {
+                int id = (int) model.getValueAt(i, 7); // Use hidden id for updates
+                String title = (String) model.getValueAt(i, 1);
+                String location = (String) model.getValueAt(i, 2);
+                String contact = (String) model.getValueAt(i, 3);
+                String notes = (String) model.getValueAt(i, 4);
+                String status = (String) model.getValueAt(i, 5);
 
-    private void applyButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_applyButton3ActionPerformed
+                String query = "UPDATE applications SET internship_title = ?, intern_location = ?, contact = ?, notes = ?, status = ? WHERE id = ?";
+                try (PreparedStatement pst = con.prepareStatement(query)) {
+                    pst.setString(1, title);
+                    pst.setString(2, location);
+                    pst.setString(3, contact);
+                    pst.setString(4, notes);
+                    pst.setString(5, status);
+                    pst.setInt(6, id);
 
-    private void applyButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_applyButton4ActionPerformed
+                    pst.executeUpdate();
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Updated successfully!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error updating database: " + e.getMessage());
+        }
+    
+    }//GEN-LAST:event_updateButtonActionPerformed
 
-    private void applyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyButtonActionPerformed
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
         // Step 1: Get the current date
         // Step 4: Insert data into the database (make sure to change the database details
-    }//GEN-LAST:event_applyButtonActionPerformed
+        
+        application_form appForm = new application_form(this.userId);
+        appForm.setVisible(true);
+
+        // Close or hide the current frame
+        this.dispose(); // Optional: Close main_page window
+          
+    }//GEN-LAST:event_addButtonActionPerformed
+
+    private void SortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SortActionPerformed
+        // TODO add your handling code here:
+        String selected = (String) Sort.getSelectedItem();
+    if (selected == null || selected.equals("Sort")) {
+        loadData(); // Load unsorted data if "Sort" is selected
+        return;
+    }
+
+    String column = switch (selected) {
+        case "By Company" -> "company_name";
+        case "By Status" -> "status";
+        case "By Date Applied" -> "date_applied";
+        default -> null;
+    };
+
+    if (column == null) {
+        JOptionPane.showMessageDialog(this, "Invalid sort option selected.");
+        return;
+    }
+
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
+         PreparedStatement pst = con.prepareStatement("SELECT * FROM applications WHERE user_id = ? ORDER BY " + column)) {
+        pst.setInt(1, userId);
+        try (ResultSet rs = pst.executeQuery()) {
+            DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("company_name"),
+                    rs.getString("internship_title"),
+                    rs.getString("intern_location"),
+                    rs.getString("contact"),
+                    rs.getString("notes"),
+                    rs.getString("status"),
+                    rs.getDate("date_applied"),
+                    rs.getInt("id")
+                });
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error sorting data: " + e.getMessage());
+    }
+    }//GEN-LAST:event_SortActionPerformed
+
+    private void importCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importCSVActionPerformed
+        // TODO add your handling code here:                                         
+    JFileChooser fileChooser = new JFileChooser();
+fileChooser.setDialogTitle("Select a CSV file to import");
+
+int userSelection = fileChooser.showOpenDialog(this);
+if (userSelection == JFileChooser.APPROVE_OPTION) {
+    File fileToOpen = fileChooser.getSelectedFile();
+
+    // Validate file
+    if (!fileToOpen.exists()) {
+        JOptionPane.showMessageDialog(this, "File does not exist: " + fileToOpen.getAbsolutePath());
+        return;
+    }
+    if (!fileToOpen.getName().endsWith(".csv")) {
+        JOptionPane.showMessageDialog(this, "Please select a valid CSV file.");
+        return;
+    }
+
+    try (BufferedReader br = new BufferedReader(new FileReader(fileToOpen));
+         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "")) {
+
+        String line;
+        String query = "INSERT INTO applications (user_id, company_name, internship_title, intern_location, contact, notes, status, date_applied) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pst = con.prepareStatement(query);
+
+        int rowsInserted = 0;
+        while ((line = br.readLine()) != null) {
+            // Split line by comma and keep empty fields
+            String[] data = line.split(",", -1);
+
+            // Check if the data length is sufficient
+            if (data.length < 7) { // Ensure at least 7 fields based on your database schema
+                System.err.println("Invalid CSV format: " + line);
+                JOptionPane.showMessageDialog(this, "Invalid CSV row skipped: " + line);
+                continue; // Skip invalid rows
+            }
+
+            // Default values for missing fields
+            String contact = data.length > 3 && !data[3].trim().isEmpty() ? data[3].trim() : "";
+            String notes = data.length > 4 && !data[4].trim().isEmpty() ? data[4].trim() : "";
+
+            try {
+                pst.setInt(1, userId);                  // user_id
+                pst.setString(2, data[0].trim());       // company_name
+                pst.setString(3, data[1].trim());       // internship_title
+                pst.setString(4, data[2].trim());       // intern_location
+                pst.setString(5, contact);               // contact
+                pst.setString(6, notes);                 // notes
+                pst.setString(7, data[5].trim());       // status
+                pst.setDate(8, Date.valueOf(data[6].trim())); // date_applied (YYYY-MM-DD format)
+
+                pst.executeUpdate(); // Insert into database
+                rowsInserted++;
+            } catch (SQLException | IllegalArgumentException e) {
+                System.err.println("Error processing row: " + line + " - " + e.getMessage());
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, rowsInserted + " records imported successfully!");
+        loadData(); // Refresh table to include new data
+
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "File reading error: " + e.getMessage());
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+    }
+}
+    
+    }//GEN-LAST:event_importCSVActionPerformed
+
+    private void logOut2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOut2ActionPerformed
+        // TODO add your handling code here:
+        main_page mainPage = new main_page();
+        mainPage.setVisible(true);
+
+        // Close or hide the current frame
+        this.dispose(); // Optional: Close main_page window
+                                               
+
+    }//GEN-LAST:event_logOut2ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     
+
+
+    private void loadData() {
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
+         PreparedStatement pst = con.prepareStatement("SELECT * FROM applications WHERE user_id = ?")) {
+
+        pst.setInt(1, userId); // Use current user's ID
+        ResultSet rs = pst.executeQuery();
+        
+        DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
+        model.setRowCount(0); // Clear existing rows
+        
+        while (rs.next()) {
+            model.addRow(new Object[]{
+                rs.getString("company_name"),
+                rs.getString("internship_title"),
+                rs.getString("intern_location"),
+                rs.getString("contact"),
+                rs.getString("notes"),
+                rs.getString("status"),
+                rs.getDate("date_applied"),
+                rs.getInt("id")  // Assuming this is hidden or used for editing later
+            });
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error loading data: " + e.getMessage());
+    }
+}
+
+    private void sortData() {
+    String selected = (String) Sort.getSelectedItem(); // Using Sort dropdown
+    if (selected == null || selected.equals("Sort")) return; // Skip if no valid option is selected
+
+    String column = switch (selected) {
+        case "By Company" -> "company_name";
+        case "By Status" -> "status";
+        case "By Date Applied" -> "date_applied";
+        default -> "";
+    };
+
+    if (column.isEmpty()) return;
+
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
+         PreparedStatement pst = con.prepareStatement("SELECT * FROM applications WHERE user_id = ? ORDER BY " + column)) {
+        pst.setInt(1, userId);
+        try (ResultSet rs = pst.executeQuery()) {
+            DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
+            model.setRowCount(0);
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("company_name"),
+                    rs.getString("internship_title"),
+                    rs.getString("intern_location"),
+                    rs.getString("contact"),
+                    rs.getString("notes"),
+                    rs.getString("status"),
+                    rs.getDate("date_applied"),
+                    rs.getInt("id")
+                });
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error sorting data: " + e.getMessage());
+    }
+}
+    
+    private void deleteEntry(int id) {
+    int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this entry?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
+    if (confirm == JOptionPane.YES_OPTION) {
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
+             PreparedStatement pst = con.prepareStatement("DELETE FROM applications WHERE id = ?")) {
+            pst.setInt(1, id);
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(this, "Entry deleted successfully.");
+                loadData(); // Reload table after deletion
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to delete entry. ID not found.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error deleting entry: " + e.getMessage());
+        }
+    }
+}
+    
+    private void searchCompany() {
+    String searchText = searchCompany.getText().trim().toLowerCase().replace(" ", ""); // Normalize input
+    if (searchText.equals("searchcompanyname") || searchText.isEmpty()) {
+        loadData(); // Reload all data if no valid search query
+        return;
+    }
+
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "");
+         PreparedStatement pst = con.prepareStatement(
+             "SELECT * FROM applications WHERE user_id = ? AND LOWER(REPLACE(company_name, ' ', '')) LIKE ?")) {
+        pst.setInt(1, userId);
+        pst.setString(2, "%" + searchText + "%"); // Use wildcards for partial matching
+        try (ResultSet rs = pst.executeQuery()) {
+            DefaultTableModel model = (DefaultTableModel) tableDisplay.getModel();
+            model.setRowCount(0); // Clear existing rows
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("company_name"),
+                    rs.getString("internship_title"),
+                    rs.getString("intern_location"),
+                    rs.getString("contact"),
+                    rs.getString("notes"),
+                    rs.getString("status"),
+                    rs.getDate("date_applied"),
+                    rs.getInt("id") // Use id for tracking purposes
+                });
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error searching data: " + e.getMessage());
+    }
+}
+
+    
+    private void configureSearch() {
+    // Trigger search when Enter is pressed
+    searchCompany.addActionListener(e -> searchCompany());
+
+    // Clear placeholder text on focus and restore it if empty
+    searchCompany.addFocusListener(new java.awt.event.FocusAdapter() {
+        @Override
+        public void focusGained(java.awt.event.FocusEvent evt) {
+            if (searchCompany.getText().equals("Search Company Name")) {
+                searchCompany.setText(""); // Clear placeholder on focus
+            }
+        }
+
+        @Override
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            if (searchCompany.getText().trim().isEmpty()) {
+                searchCompany.setText("Search Company Name"); // Restore placeholder if empty
+            }
+        }
+    });
+}
+
+    
+    private void configureTable() {
+        // Add dropdown editor for Status column
+        String[] statuses = {"Applied", "Interview", "Awaiting Results", "Offer Received", "Rejected"};
+        tableDisplay.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(new JComboBox<>(statuses)));
+
+        // Add custom button renderer and editor for Action column
+        tableDisplay.getColumnModel().getColumn(7).setCellRenderer(new ButtonRenderer());
+        tableDisplay.getColumnModel().getColumn(7).setCellEditor(new ButtonEditor(new JCheckBox()));
+    }
+    
+    
+    // Custom Button Renderer and Editor
+    class ButtonRenderer extends JButton implements TableCellRenderer {
+        public ButtonRenderer() {
+            setOpaque(true);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            setText("Delete");
+            return this;
+        }
+    }
+
+    class ButtonEditor extends DefaultCellEditor {
+    private JButton button;
+    private boolean isPushed;
+    private int selectedRow;
+
+    public ButtonEditor(JCheckBox checkBox) {
+        super(checkBox);
+        button = new JButton("Delete");
+        button.setOpaque(true);
+        button.addActionListener(e -> fireEditingStopped());
+    }
+
+    @Override
+    public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+        isPushed = true;
+        selectedRow = row; // Store the selected row for deletion
+        return button;
+    }
+
+    @Override
+    public Object getCellEditorValue() {
+        if (isPushed) {
+            int id = (int) tableDisplay.getValueAt(selectedRow, 7); // Ensure ID is in the 8th column
+            deleteEntry(id);
+        }
+        isPushed = false;
+        return "Delete";
+    }
+
+    @Override
+    public boolean stopCellEditing() {
+        isPushed = false;
+        return super.stopCellEditing();
+    }
+}
+
+
+
 
     
 
@@ -191,24 +706,23 @@ public class display_page extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-            java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new display_page().setVisible(true);
-            }
-        });
+            java.awt.EventQueue.invokeLater(() -> new display_page(1).setVisible(true));
     }
 
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton applyButton;
-    private javax.swing.JButton applyButton1;
-    private javax.swing.JButton applyButton2;
-    private javax.swing.JButton applyButton3;
-    private javax.swing.JButton applyButton4;
+    private javax.swing.JComboBox<String> Sort;
+    private javax.swing.JButton addButton;
+    private javax.swing.JLabel copyright;
+    private javax.swing.JButton importCSV;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton logOut2;
+    private javax.swing.JTextField searchCompany;
+    private javax.swing.JTable tableDisplay;
     private javax.swing.JLabel top;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }

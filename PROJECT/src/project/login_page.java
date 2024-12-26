@@ -273,36 +273,32 @@ public class login_page extends javax.swing.JFrame {
         return;
     }
     
-    try (Connection connection = DatabaseConnection.getConnection()) {
-        // Authenticate user
-        String query = "SELECT password_hash FROM users WHERE username = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, inputUsername);
+    try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/internship_tracker", "root", "")) {
+        String query = "SELECT id, password_hash FROM users WHERE username = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, inputUsername);
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int user_id = resultSet.getInt("id");
+                    String storedPasswordHash = resultSet.getString("password_hash");
 
-        if (resultSet.next()) {
-            String storedPasswordHash = resultSet.getString("password_hash");
+                    if (inputPassword.equals(storedPasswordHash)) {
+                        JOptionPane.showMessageDialog(this, "Login Successful!");
 
-            // Compare hashed passwords (simple comparison for now)
-            if (inputPassword.equals(storedPasswordHash)) {
-                JOptionPane.showMessageDialog(this, "Login Successful!");
-
-                // Redirect to another page (e.g., dashboard)
-                int user_id = resultSet.getInt("id");
-//
-            // Pass user_id to display_page
-            display_page display = new display_page();
-            display.setVisible(true);
-            this.dispose();  // Close login page
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid Username/Password", "Error", JOptionPane.ERROR_MESSAGE);
+                        // Pass user_id to display_page
+                        display_page display = new display_page(user_id);
+                        display.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Invalid Username/Password", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "User not found!", "Error", JOptionPane.ERROR_MESSAGE);
         }
     } catch (SQLException ex) {
-        ex.printStackTrace();
         JOptionPane.showMessageDialog(this, "Database Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
         
