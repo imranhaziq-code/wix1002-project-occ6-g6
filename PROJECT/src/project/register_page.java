@@ -454,8 +454,8 @@ public class register_page extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "User registered successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 // Pass the user ID to the application_form
-                application_form appForm = new application_form(userId);
-                appForm.setVisible(true);
+                display_page disPage = new display_page(userId);
+                disPage.setVisible(true);
 
                 // Close or hide the current frame
                 this.dispose();
