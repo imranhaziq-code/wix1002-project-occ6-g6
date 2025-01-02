@@ -303,7 +303,7 @@ public class login_page extends javax.swing.JFrame {
                         this.dispose(); // Close the current login window
                     } else {
                         // If passwords don't match, show an error message
-                        JOptionPane.showMessageDialog(this, "Invalid Username/Password", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Invalid Password", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                     // If the username is not found in the database, show an error message
