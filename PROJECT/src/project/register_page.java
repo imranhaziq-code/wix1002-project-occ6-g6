@@ -331,6 +331,20 @@ public class register_page extends javax.swing.JFrame {
                     textField.setText(placeholder);
                     textField.setForeground(java.awt.Color.GRAY);
                 }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             }
         });
     }
@@ -411,6 +425,15 @@ public class register_page extends javax.swing.JFrame {
     String gender = maleButton.isSelected() ? "Male" : "Female";
 
     
+    // Email validation regex pattern
+String emailRegex = "^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
+
+// Check if the email format is invalid
+if (!emailInput.matches(emailRegex)) {
+    JOptionPane.showMessageDialog(this, "Invalid email format! Please enter a valid email address.", "Error", JOptionPane.ERROR_MESSAGE);
+    return; // Exit the method if email is invalid
+}
+
     // Check if the passwords entered match
     if (!passwordInput.equals(confirmPassInput)) {
         JOptionPane.showMessageDialog(this, "Passwords do not match!", "Error", JOptionPane.ERROR_MESSAGE);
